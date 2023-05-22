@@ -10,6 +10,8 @@
 
 */
 
+
+
 // Corresponding choices by number for the game.
 const ROCK_NUM = 1;
 const PAPER_NUM = 2;
