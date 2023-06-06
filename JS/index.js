@@ -1,16 +1,4 @@
-//Rock Paper Scissors Program with Computer
-
-/*
-
-1. Computer chooses one of three choices.
-2. Player chooses one of three choices.
-3. If Rock vs Paper = Paper Wins!
-   If Rock vs Scissors = Rock Wins!
-   If Paper vs Scissors = Scissors Wins!
-
-*/
-
-
+//Rock Paper Scissors Program with a User and Computer
 
 //Corresponding choices by number for the game.
 const ROCK_NUM = 1;
@@ -22,10 +10,11 @@ const ROCK_STR = "rock";
 const PAPER_STR = "paper";
 const SCISSORS_STR = "scissors";
 
+const SCORE_LIMIT = 5;
+
 //Score
 let playerScore = 0;
 let computerScore = 0;
-
 
 /*
 Chooses rock, paper, scissors for the computer opponent.
@@ -43,6 +32,16 @@ function getComputerChoice() {
         console.log("Computer: Scissor");
         return SCISSORS_STR;
     }
+}
+
+function getPlayerChoice() {
+    let buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => button.addEventListener('click', event => {
+        let playerChoice = event.target.textContent;
+        let compChoice = getComputerChoice();
+        playRound(playerChoice, compChoice);
+    }));
 }
 
 /* 
@@ -82,7 +81,7 @@ function playRound(playerSelection, computerSelection) {
 
 function keepScore(winner) {
 /*    
-    0,1,2 signifies tie, win, lose values for the player and computer.
+    0,1,2 signifies tie, win, lose values for the player or computer.
     Value 0 is neither player nor computer.
     Value 1 is the player.
     Value 2 is the computer.
@@ -105,20 +104,27 @@ function keepScore(winner) {
 }
 
 function game() {
-    /*
-    Prompt user to enter their choice.
-    Get computer choice selection.
-    Play a round.
-    
-    */
 
-    //Get user, computer choices.
-   let userInput = prompt("Wanna choose Rock, Paper, or Scissors?", "Rock");
-   let compChoice = getComputerChoice();
+   let isKeepPlaying = true;
+   let response = "";
 
-   let roundWinner = playRound(userInput, compChoice);
-   
-   keepScore(roundWinner);
+   while (isKeepPlaying) {
 
+        let userInput = prompt("Choose Rock, Paper, Scissors?", "Rock");
+        let compChoice = getComputerChoice();
+        //let playerSelection =  getPlayerChoice();
+        let roundWinner = playRound(userInput, compChoice);
+        
+        keepScore(roundWinner);
+
+        //if (playerScore === SCORE_LIMIT || computerScore === SCORE_LIMIT) {
+            response = prompt(`Want to continue playing Rock Paper Scissors? Press "no" to quit, or any key to continue`, `no`);
+        //}
+
+        if (response === "no") {
+            isKeepPlaying = false;
+        }
+    }
 }
 
+getPlayerChoice();
