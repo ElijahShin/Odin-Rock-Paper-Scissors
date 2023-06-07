@@ -12,6 +12,9 @@ const SCISSORS_STR = "scissors";
 
 const SCORE_LIMIT = 5;
 
+const SELECT_PARA1 = 'p:first-child';
+const SELECT_PARA2 = 'p:nth-child(2)';
+
 //Score
 let playerScore = 0;
 let computerScore = 0;
@@ -38,14 +41,16 @@ function getPlayerChoice() {
     let buttons = document.querySelectorAll('button');
 
     buttons.forEach(button => button.addEventListener('click', event => {
-        let selectP2 = 'p:nth-child(2)';
+        
         
         let playerChoice = event.target.textContent;
         let compChoice = getComputerChoice();
         
         let winner =  playRound(playerChoice, compChoice);
         let scoreMessage = keepScore(winner);
-        displayText(scoreMessage, selectP2);
+        displayText(scoreMessage, SELECT_PARA2);
+
+        isGameOver();
     }));
 }
 
@@ -58,48 +63,47 @@ function displayText(string, cssSelector) {
 Plays a round of rock, paper, scissors
 */
 function playRound(playerSelection, computerSelection) {
-    let selectP1 = 'p:first-child';
     
 
     if ( playerSelection.toLowerCase() === ROCK_STR && computerSelection === PAPER_STR ) {
 
-        displayText("You lose this round! Paper beats Rock!", selectP1);
+        displayText("You lose this round! Paper beats Rock!", SELECT_PARA1);
     
         return 2;
     } 
     else if ( playerSelection.toLowerCase() === ROCK_STR && computerSelection === SCISSORS_STR ) {
 
-        displayText("You win this round! Rock beats Scissors!", selectP1);
+        displayText("You win this round! Rock beats Scissors!", SELECT_PARA1);
     
         return 1;
 
     } else if ( playerSelection.toLowerCase() === PAPER_STR && computerSelection === ROCK_STR ) {
 
-        displayText("You win this round! Paper beats Rock!", selectP1);
+        displayText("You win this round! Paper beats Rock!", SELECT_PARA1);
     
         return 1;
 
     } else if ( playerSelection.toLowerCase() === PAPER_STR && computerSelection === SCISSORS_STR ) {
 
-        displayText("You lose this round! Scissors beats Paper!", selectP1);
+        displayText("You lose this round! Scissors beats Paper!", SELECT_PARA1);
     
         return 2;
 
     } else if ( playerSelection.toLowerCase() === SCISSORS_STR && computerSelection === ROCK_STR ) {
 
-        displayText("You lose this round! Rock beats Scissors!", selectP1);
+        displayText("You lose this round! Rock beats Scissors!", SELECT_PARA1);
     
         return 2;
 
     } else if ( playerSelection.toLowerCase() === SCISSORS_STR && computerSelection === PAPER_STR ) {
 
-        displayText("You win this round! Scissors beats Paper!", selectP1);
+        displayText("You win this round! Scissors beats Paper!", SELECT_PARA1);
     
         return 1;
 
     } else {
 
-        displayText("Wow! It's a tie-breaker this round! Get ready for another battle!", selectP1);
+        displayText("Wow! It's a tie-breaker this round! Get ready for another battle!", SELECT_PARA1);
         return 0;
     }
  
@@ -132,28 +136,25 @@ function keepScore(winner) {
 
 }
 
-function game() {
+function scoreReset() {
+    playerScore = 0;
+    computerScore = 0;
+}
 
-//    let isKeepPlaying = true;
-//    let response = "";
-
-//    while (isKeepPlaying) {
-
-//         let userInput = prompt("Choose Rock, Paper, Scissors?", "Rock");
-//         let compChoice = getComputerChoice();
-//         //let playerSelection =  getPlayerChoice();
-//         let roundWinner = playRound(userInput, compChoice);
+function isGameOver() {
+    if (playerScore === SCORE_LIMIT) {
         
-//         keepScore(roundWinner);
+        displayText('CONGRATULATIONS! YOU WIN THE GAME!', SELECT_PARA2);
+        scoreReset();
 
-//         //if (playerScore === SCORE_LIMIT || computerScore === SCORE_LIMIT) {
-//             response = prompt(`Want to continue playing Rock Paper Scissors? Press "no" to quit, or any key to continue`, `no`);
-//         //}
+    } else if(computerScore === SCORE_LIMIT) {
+        displayText('WOW! COMPUTER WINS THE GAME! YOU LOSE!', SELECT_PARA2);
+        scoreReset();
+    }
+    
+}
 
-//         if (response === "no") {
-//             isKeepPlaying = false;
-//         }
-//     }
+function game() {
     getPlayerChoice();
 
 }
