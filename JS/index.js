@@ -134,6 +134,10 @@ function scoreCount(winStatusNum) {
   } 
 }
 
+function displayScore() {
+  console.log (`Player: ${playerScore}    Computer: ${computerScore}`);
+}
+
 function gameWinner() {
   //Checks to see which player has the most at the end of 5 rounds to determine the official winner.
   if(playerScore > computerScore) {
@@ -157,6 +161,7 @@ function game() {
     let winStatus = playRound(player, computer);
     scoreCount(winStatus);
     console.log(roundResult(winStatus, player, computer));
+    displayScore();
   }
   console.log(gameWinner());
 }
