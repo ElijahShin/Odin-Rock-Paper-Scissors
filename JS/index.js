@@ -109,15 +109,15 @@ function roundResult(winStatusNum, playerSelection, computerSelection) {
 
   //if player wins, print win message
   if(winStatusNum === 1) {
-    return `You win! Your ${playerSelection} beats ${computerSelection}!`; 
+    return `You win this round! Your ${playerSelection} beats ${computerSelection}!`; 
 
     //if player loses, print lose message
   } else if (winStatusNum === 0) {
-    return `You lose! ${computerSelection} beats your ${playerSelection}!`;
+    return `You lose this round! ${computerSelection} beats your ${playerSelection}!`;
 
     //else player ties, print tie message
   } else {
-    return `You tied! No points awarded!`;
+    return `You tied this round! No points awarded!`;
   }
 }
 
@@ -134,6 +134,17 @@ function scoreCount(winStatusNum) {
   } 
 }
 
+function gameWinner() {
+  //Checks to see which player has the most at the end of 5 rounds to determine the official winner.
+  if(playerScore > computerScore) {
+    return 'Congratulations! You won the ROCK PAPER SCISSORS GAME!'
+  } else if(playerScore < computerScore) {
+    return 'Game Over! You lost the ROCK PAPER SCISSORS GAME!';
+  } else {
+    return 'Wow! You tied the ROCK PAPER SCISSORS GAME!'
+  }
+}
+
 /* 
 Plays 5 rounds of Rock Paper Scissors.
 */
@@ -147,6 +158,7 @@ function game() {
     scoreCount(winStatus);
     console.log(roundResult(winStatus, player, computer));
   }
+  console.log(gameWinner());
 }
 
 game();
