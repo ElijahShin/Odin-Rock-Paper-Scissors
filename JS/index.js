@@ -96,7 +96,16 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-let computer = getComputerChoice();
-let player = playerSelection();
+/* Plays Rock Paper Scissors */
+function game() {
 
-console.log(playRound(player, computer));
+  for(let i = 0; i < 5; i++) {
+    let computer = getComputerChoice();
+    let player = playerSelection();
+    
+    console.log(playRound(player, computer));
+  }
+}
+
+game();
+
