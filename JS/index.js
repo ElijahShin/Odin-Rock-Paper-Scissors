@@ -24,25 +24,29 @@ function getComputerChoice() {
 }
 
 /*
-Get player choice through user input
+Get player choice from player input
 @Return Number
 */
 function playerSelection() {
-  //Prompt to choose between 3 three choices, bound to keys 1-3
-  let input = prompt('1 - Rock\n2 - Paper\n3 - Scissors');
+  //Prompt the user to type in a choice
+  let input = prompt('Type in your choice of Rock, Paper, Scissors');
+  //Take string input and change it to lower case letters
+  let lowerCaseInput = input.toLowerCase()
 
   //Take in value in a switch statement which returns rock, paper, or scissors
-  switch (+input) {
-    case 1:
-      console.log("Rock");
+  switch (lowerCaseInput) {
+    case 'rock':
+      console.log(lowerCaseInput)
       return "Rock";
       break;
-    case 2:
-      console.log("Paper");
+
+    case 'paper':
+      console.log(lowerCaseInput)
       return "Paper";
       break;
-    case 3:
-      console.log("Scissors");
+
+    case 'scissors':
+      console.log(lowerCaseInput)
       return "Scissors";
       break;
 
