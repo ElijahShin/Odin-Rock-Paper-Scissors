@@ -1,7 +1,11 @@
+const ROCK = 'ROCK';
+const PAPER = 'PAPER';
+const SCISSORS = 'SCISSORS';
+
 
 /* 
-Get one of three choices for the computer 
-@Returns String
+Get one of three choices for the computer. 
+@return String
 */
 
 function getComputerChoice() {
@@ -9,45 +13,44 @@ function getComputerChoice() {
   let rand = Math.floor(Math.random() * 3) + 1;
   //1 = Rock 2 = Paper 3 = Scissors
   //Run through a Switch statement that returns rock, paper scissor 
-  console.log(rand);
   switch (rand) {
     case 1:
-      return "Rock";
+      return ROCK;
       break;
     case 2:
-      return "Paper";
+      return PAPER;
       break;
     case 3:
-      return "Scissors";
+      return SCISSORS;
       break;
   }
 }
 
 /*
-Get player choice from player input
-@Return Number
+Get player choice from player input.
+@return Number
 */
 function playerSelection() {
-  //Prompt the user to type in a choice
+  //Prompt the user to type in a choice.
   let input = prompt('Type in your choice of Rock, Paper, Scissors');
-  //Take string input and change it to lower case letters
-  let lowerCaseInput = input.toLowerCase()
+  //Take string input and change it to lower case letters.
+  let capitalizeInput = input.toUpperCase();
 
-  //Take in value in a switch statement which returns rock, paper, or scissors
-  switch (lowerCaseInput) {
-    case 'rock':
-      console.log(lowerCaseInput)
-      return "Rock";
+  //Take in value in a switch statement which returns rock, paper, or scissors.
+  switch (capitalizeInput) {
+    case ROCK:
+      console.log(capitalizeInput)
+      return capitalizeInput;
       break;
 
-    case 'paper':
-      console.log(lowerCaseInput)
-      return "Paper";
+    case PAPER:
+      console.log(capitalizeInput)
+      return capitalizeInput;
       break;
 
-    case 'scissors':
-      console.log(lowerCaseInput)
-      return "Scissors";
+    case SCISSORS:
+      console.log(capitalizeInput)
+      return capitalizeInput;
       break;
 
     default:
@@ -55,6 +58,45 @@ function playerSelection() {
   }
 }
 
-playerSelection();
+/*
+Play a single round of the game.
+@return String
+*/
+function playRound(playerSelection, computerSelection) {
+  //Tie Scenarios
+  if (playerSelection === ROCK && computerSelection === ROCK) {
+    return `You tied! ${playerSelection} against ${computerSelection}`;
 
+  } else if (playerSelection === PAPER && computerSelection === PAPER) {
+    return `You tied! ${playerSelection} against ${computerSelection}`;
+    
+  } else if (playerSelection === SCISSORS && computerSelection === SCISSORS) {
+    return `You tied! ${playerSelection} against ${computerSelection}`;
 
+  //Player Win Scenarios
+  } else if (playerSelection === ROCK && computerSelection === SCISSORS) {
+    return `You win! ${playerSelection} crushes ${computerSelection}!`;
+
+  } else if (playerSelection === PAPER && computerSelection === ROCK) {
+    return `You win! ${playerSelection} devours ${computerSelection}`;
+
+  } else if (playerSelection === SCISSORS && computerSelection === PAPER) {
+    return `You win! ${playerSelection} slashes ${computerSelection}`;
+  }
+
+  //Computer Win Scenarios
+  else if (computerSelection === ROCK && playerSelection === SCISSORS) {
+    return `You lose! ${computerSelection} crushes ${playerSelection}!`;
+
+  } else if (computerSelection === PAPER && playerSelection === ROCK) {
+    return `You lose! ${computerSelection} devours ${playerSelection}`;
+
+  } else if (computerSelection === SCISSORS && playerSelection === PAPER) {
+    return `You lose! ${computerSelection} slices ${playerSelection}`;
+  }
+}
+
+let computer = getComputerChoice();
+let player = playerSelection();
+
+console.log(playRound(player, computer));
