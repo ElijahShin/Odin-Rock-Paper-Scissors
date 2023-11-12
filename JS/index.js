@@ -65,47 +65,79 @@ Play a single round of the game.
 function playRound(playerSelection, computerSelection) {
   //Tie Scenarios
   if (playerSelection === ROCK && computerSelection === ROCK) {
-    return `You tied! ${playerSelection} against ${computerSelection}`;
+    // return `You tied! ${playerSelection} against ${computerSelection}`
+    return -1;
 
   } else if (playerSelection === PAPER && computerSelection === PAPER) {
-    return `You tied! ${playerSelection} against ${computerSelection}`;
+    // return `You tied! ${playerSelection} against ${computerSelection}`
+    return -1;
     
   } else if (playerSelection === SCISSORS && computerSelection === SCISSORS) {
-    return `You tied! ${playerSelection} against ${computerSelection}`;
+    // return `You tied! ${playerSelection} against ${computerSelection}`
+    return -1;
 
   //Player Win Scenarios
   } else if (playerSelection === ROCK && computerSelection === SCISSORS) {
-    return `You win! ${playerSelection} crushes ${computerSelection}!`;
+    // return `You win! ${playerSelection} crushes ${computerSelection}!`
+    return 1;
 
   } else if (playerSelection === PAPER && computerSelection === ROCK) {
-    return `You win! ${playerSelection} devours ${computerSelection}`;
+    // return `You win! ${playerSelection} devours ${computerSelection}`
+    return 1;
 
   } else if (playerSelection === SCISSORS && computerSelection === PAPER) {
-    return `You win! ${playerSelection} slashes ${computerSelection}`;
+    // return `You win! ${playerSelection} slashes ${computerSelection}`;
+    return 1;
   }
 
   //Computer Win Scenarios
   else if (computerSelection === ROCK && playerSelection === SCISSORS) {
-    return `You lose! ${computerSelection} crushes ${playerSelection}!`;
+    // return `You lose! ${computerSelection} crushes ${playerSelection}!`;
+    return 0;
 
   } else if (computerSelection === PAPER && playerSelection === ROCK) {
-    return `You lose! ${computerSelection} devours ${playerSelection}`;
+    // return `You lose! ${computerSelection} devours ${playerSelection}`;
+    return 0;
 
   } else if (computerSelection === SCISSORS && playerSelection === PAPER) {
-    return `You lose! ${computerSelection} slices ${playerSelection}`;
+    // return `You lose! ${computerSelection} slices ${playerSelection}`;
+    return 0;
   }
 }
 
-/* Plays Rock Paper Scissors */
+/*
+Displays the results of oe round of the game.
+@param winStatusNum represents numbers 1 - win, 0 - lose, -1 - tie status as Number
+@param playerSelection as String for display
+@param computerSelection as String for display
+*/
+function roundResult(winStatusNum, playerSelection, computerSelection) {
+
+  //if player wins, print win message
+  if(winStatusNum === 1) {
+    return `You win! Your ${playerSelection} beats ${computerSelection}!`; 
+
+    //if player loses, print lose message
+  } else if (winStatusNum === 0) {
+    return `You lose! ${computerSelection} beats your ${playerSelection}!`;
+
+    //else player ties, print tie message
+  } else {
+    return `You tied! No points awarded!`;
+  }
+}
+
+/* Plays 5 rounds of Rock Paper Scissors */
 function game() {
 
   for(let i = 0; i < 5; i++) {
     let computer = getComputerChoice();
     let player = playerSelection();
     
-    console.log(playRound(player, computer));
+    let winStatus = playRound(player, computer);
+
+    console.log(roundResult(winStatus, player, computer));
   }
 }
 
 game();
-
