@@ -113,6 +113,11 @@ Keeps player and computer score.
 @param winStatusNum represents numbers 1 - win, 0 - lose, -1 - tie status as Number.
 */
 function scoreCount(winStatusNum) {
+  if(playerScore == 5 || computerScore == 5) {
+    playerScore = 0;
+    computerScore = 0;
+  }
+
   if (winStatusNum === 1) {
     playerScore++;
   } else if (winStatusNum === 0) {
