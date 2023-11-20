@@ -97,8 +97,6 @@ Displays the results of one round of the game.
 @param computerSelection as String 
 */
 function roundResultStr(winStatusNum, playerSelection, computerSelection) {
-
-
   if(winStatusNum === 1) {
     return `You win this round! Your ${playerSelection} beats ${computerSelection}!`; 
 
@@ -115,7 +113,6 @@ Keeps player and computer score.
 @param winStatusNum represents numbers 1 - win, 0 - lose, -1 - tie status as Number.
 */
 function scoreCount(winStatusNum) {
-
   if (winStatusNum === 1) {
     playerScore++;
   } else if (winStatusNum === 0) {
@@ -124,7 +121,6 @@ function scoreCount(winStatusNum) {
 }
 
 function scoreStr() {
-
   return `Player: ${playerScore}    Computer: ${computerScore}`;
 }
 
@@ -140,11 +136,11 @@ function displayStr(str, tagClass) {
 }
 
 function gameWinner() {
-  if(playerScore > computerScore) {
+  if(playerScore == 5 && (playerScore > computerScore)) {
     return 'Congratulations! You won the ROCK PAPER SCISSORS GAME!'
-  } else if(playerScore < computerScore) {
-    return 'Game Over! You lost the ROCK PAPER SCISSORS GAME!';
-  } else {
+  } else if(computerScore == 5 && (playerScore < computerScore)) {
+    return 'Game Over! You lost ROCK PAPER SCISSORS !';
+  } else if( playerScore == 5 && computerScore == 5) {
     return 'Wow! You tied the ROCK PAPER SCISSORS GAME!'
   }
 }
@@ -170,10 +166,11 @@ function btnClick() {
 
       //Store player, computer score message
       let scoreMsg = scoreStr();
-
+      let winnerMsg = gameWinner();
       //Put up on webpage
-      displayStr(resultMsg, "result");
-      displayStr(scoreMsg, "score");
+      displayStr(resultMsg, 'result');
+      displayStr(scoreMsg, 'score');
+      displayStr(winnerMsg, 'winner')
     });
 }
 
