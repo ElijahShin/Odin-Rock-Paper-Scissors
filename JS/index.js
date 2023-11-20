@@ -10,12 +10,10 @@ let computerScore = 0;
 Get one of three choices for the computer. 
 @return String
 */
-
 function getComputerChoice() {
-  //Random number generator chooses a number between 1-3
+
   let rand = Math.floor(Math.random() * 3) + 1;
-  //1 = Rock 2 = Paper 3 = Scissors
-  //Run through a Switch statement that returns rock, paper scissor 
+
   switch (rand) {
     case 1:
       return ROCK;
@@ -33,26 +31,19 @@ function getComputerChoice() {
 Get player choice from player input.
 @return Number
 */
-function playerSelection() {
-  //Prompt the user to type in a choice.
-  let input = prompt('Type in your choice of Rock, Paper, Scissors');
-  //Take string input and change it to lower case letters.
-  let capitalizeInput = input.toUpperCase();
+function playerSelection(value) {
+  capitalizeInput = value.toUpperCase();
 
-  //Take in value in a switch statement which returns rock, paper, or scissors.
   switch (capitalizeInput) {
     case ROCK:
-      console.log(capitalizeInput)
       return capitalizeInput;
       break;
 
     case PAPER:
-      console.log(capitalizeInput)
       return capitalizeInput;
       break;
 
     case SCISSORS:
-      console.log(capitalizeInput)
       return capitalizeInput;
       break;
 
@@ -100,22 +91,20 @@ function playRound(playerSelection, computerSelection) {
 }
 
 /*
-Displays the results of oe round of the game.
+Displays the results of one round of the game.
 @param winStatusNum represents numbers 1 - win, 0 - lose, -1 - tie status as Number.
 @param playerSelection as String 
 @param computerSelection as String 
 */
-function roundResult(winStatusNum, playerSelection, computerSelection) {
+function roundResultStr(winStatusNum, playerSelection, computerSelection) {
 
-  //if player wins, print win message
+
   if(winStatusNum === 1) {
     return `You win this round! Your ${playerSelection} beats ${computerSelection}!`; 
 
-    //if player loses, print lose message
   } else if (winStatusNum === 0) {
     return `You lose this round! ${computerSelection} beats your ${playerSelection}!`;
 
-    //else player ties, print tie message
   } else {
     return `You tied this round! No points awarded!`;
   }
@@ -134,12 +123,23 @@ function scoreCount(winStatusNum) {
   } 
 }
 
-function displayScore() {
-  console.log (`Player: ${playerScore}    Computer: ${computerScore}`);
+function scoreStr() {
+
+  return `Player: ${playerScore}    Computer: ${computerScore}`;
+}
+
+/*
+Displays messages on web page.
+@param str as the message as String
+@param ele as the specified html element as String
+*/
+function displayStr(str, tagClass) {
+  const message = document.querySelector(`.${tagClass}`);
+  message.textContent = str;
+
 }
 
 function gameWinner() {
-  //Checks to see which player has the most at the end of 5 rounds to determine the official winner.
   if(playerScore > computerScore) {
     return 'Congratulations! You won the ROCK PAPER SCISSORS GAME!'
   } else if(playerScore < computerScore) {
@@ -149,21 +149,32 @@ function gameWinner() {
   }
 }
 
-/* 
-Plays 5 rounds of Rock Paper Scissors.
-*/
-function game() {
+function btnClick() {
+    //Get reference dom rps button value
+    const btnWrapper = document.querySelector('.btn-wrapper');
 
-  for(let i = 0; i < 5; i++) {
-    let computer = getComputerChoice();
-    let player = playerSelection();
-    
-    let winStatus = playRound(player, computer);
-    scoreCount(winStatus);
-    console.log(roundResult(winStatus, player, computer));
-    displayScore();
-  }
-  console.log(gameWinner());
+    //When the user clicks on a button, get the rps value of that button
+    btnWrapper.addEventListener('click', event => {
+      let btnValue = event.target.value;
+
+      //Get player/computer choices
+      let playerChoice = playerSelection(btnValue);
+      let computerChoice = getComputerChoice();
+
+      //Get the result of who won
+      let winStatusVal = playRound(playerChoice, computerChoice);
+
+      //Store win message
+      let resultMsg = roundResultStr(winStatusVal, playerChoice, computerChoice);
+      scoreCount(winStatusVal);
+
+      //Store player, computer score message
+      let scoreMsg = scoreStr();
+
+      //Put up on webpage
+      displayStr(resultMsg, "result");
+      displayStr(scoreMsg, "score");
+    });
 }
 
-game();
+btnClick();
